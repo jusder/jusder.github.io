@@ -4,283 +4,36 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="/apps/localwise/icon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LocalWise - Skip the tourist traps.</title>
-  <meta name="application-name" content="LocalWise" />
-  <meta name="description" content="LocalWise connects travelers with locals who know the real spots — the hidden gems, neighborhood finds, and places worth the trip." />
-  <meta property="og:title" content="LocalWise" />
-  <meta property="og:description" content="Connect with a local who knows the real spots. Not the ones on every list — the ones worth the trip." />
-  <meta property="og:url" content="https://jusder.me/apps/localwise/" />
+  <title>LocalWise – Skip the tourist traps.</title>
+  <meta name="description" content="Connect with a local who knows the real spots. Not the ones on every list — the ones worth the trip." />
+  <meta property="og:title" content="LocalWise – Skip the tourist traps." />
+  <meta property="og:description" content="Connect with a local who knows the real spots." />
+  <meta property="og:image" content="https://jusder.me/apps/localwise/icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #0a0a0a;
-      --surface: #111;
-      --accent: #c8f564;
-      --text: #f0f0f0;
-      --muted: #555;
-      --border: #1e1e1e;
-    }
-
-    html, body {
-      min-height: 100%;
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Mono', monospace;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: radial-gradient(circle, #222 1px, transparent 1px);
-      background-size: 28px 28px;
-      opacity: 0.5;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    body::after {
-      content: '';
-      position: fixed;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(200,245,100,0.07) 0%, transparent 70%);
-      top: -100px;
-      left: -100px;
-      pointer-events: none;
-      z-index: 0;
-      animation: blobmove 12s ease-in-out infinite alternate;
-    }
-
-    @keyframes blobmove {
-      from { transform: translate(0, 0); }
-      to { transform: translate(120px, 80px); }
-    }
-
-    .wrapper {
-      position: relative;
-      z-index: 1;
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 32px;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      min-height: 100vh;
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 32px 0 0;
-      opacity: 0;
-      animation: fadeup 0.6s ease forwards 0.1s;
-    }
-
-    .logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.2rem;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .logo span { color: var(--accent); }
-
-    nav a.back {
-      font-size: 0.75rem;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-
-    nav a.back:hover { color: var(--accent); }
-
-    .hero {
-      padding: 80px 0 40px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      opacity: 0;
-      animation: fadeup 0.6s ease forwards 0.3s;
-    }
-
-    .app-icon {
-      width: 100px;
-      height: 100px;
-      border-radius: 22px;
-      margin-bottom: 36px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
-    }
-
-    .eyebrow {
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 16px;
-    }
-
-    h1 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(2.8rem, 8vw, 5.5rem);
-      line-height: 0.95;
-      letter-spacing: -0.03em;
-      margin-bottom: 24px;
-    }
-
-    h1 em {
-      font-style: normal;
-      color: transparent;
-      -webkit-text-stroke: 1.5px var(--accent);
-    }
-
-    .tagline {
-      font-size: 1rem;
-      color: #aaa;
-      line-height: 1.7;
-      max-width: 520px;
-      margin-bottom: 40px;
-    }
-
-    .links {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .button {
-      display: inline-block;
-      padding: 12px 16px;
-      border: 1px solid var(--accent);
-      border-radius: 999px;
-      color: var(--accent);
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .button:hover { background: var(--accent); color: var(--bg); }
-
-    .features {
-      margin-top: 72px;
-      opacity: 0;
-      animation: fadeup 0.6s ease forwards 0.5s;
-    }
-
-    .features-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 24px;
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .feature {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.2s;
-    }
-
-    .feature::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s ease;
-    }
-
-    .feature:hover { border-color: #333; }
-    .feature:hover::before { transform: scaleX(1); }
-
-    .feature h2 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      letter-spacing: -0.02em;
-      margin-bottom: 10px;
-    }
-
-    .feature p {
-      font-size: 0.82rem;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    footer {
-      padding: 32px 0 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid var(--border);
-      font-size: 0.72rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-      opacity: 0;
-      animation: fadeup 0.6s ease forwards 0.7s;
-    }
-
-    footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
-    footer a:hover { color: var(--accent); }
-
-    @keyframes fadeup {
-      from { opacity: 0; transform: translateY(18px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 760px) {
-      .feature-grid { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 600px) {
-      .wrapper { padding: 0 20px; }
-      footer { flex-direction: column; gap: 12px; text-align: center; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;850;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site.css" />
 </head>
 <body>
-  <div class="wrapper">
-    <nav>
-      <a class="logo" href="/">jus<span>.</span>der</a>
-      <a class="back" href="/">&#8592; All Apps</a>
-    </nav>
+  <div class="page">
+    <header class="site-nav">
+      <a class="brand" href="/">
+        <img src="/assets/jusder-logo.png" alt="" />
+        Jusder
+      </a>
+      <nav class="nav-links">
+        <a href="/#apps">All Apps</a>
+        <a href="mailto:hello@jusder.me">Contact</a>
+      </nav>
+    </header>
 
     <main>
-      <section class="hero">
-        <img class="app-icon" src="/apps/localwise/icon.png" alt="LocalWise icon" />
-        <p class="eyebrow">LocalWise</p>
-        <h1>LocalWise —<br><em>skip the tourist traps.</em></h1>
+      <section class="app-hero">
+        <img class="app-hero-icon" src="/apps/localwise/icon.png" alt="LocalWise icon" />
+        <p class="eyebrow">Web App</p>
+        <h1>Skip the<br><em>tourist traps.</em></h1>
         <p class="tagline">Connect with a local who knows the real spots. Not the ones on every list — the ones worth the trip.</p>
-        <div class="links">
-          <a class="button" href="https://tanstack-start-app.jusder.workers.dev" target="_blank" rel="noopener">Launch App</a>
-          <a class="button" href="/apps/localwise/support/">Support</a>
-          <a class="button" href="/apps/localwise/privacy/">Privacy Policy</a>
+        <div class="badges">
+          <a class="badge-try" href="https://tanstack-start-app.jusder.workers.dev" target="_blank" rel="noopener">Launch App &#8594;</a>
         </div>
       </section>
 
@@ -288,24 +41,32 @@
         <p class="features-label" id="features-title">What it does</p>
         <div class="feature-grid">
           <div class="feature">
-            <h2>Book a Local</h2>
+            <span class="feature-icon">&#128205;</span>
+            <h3>Book a Local</h3>
             <p>Browse locals in your destination and book a guided experience on your terms — no tour-bus required.</p>
           </div>
           <div class="feature">
-            <h2>Hidden Gems</h2>
+            <span class="feature-icon">&#128142;</span>
+            <h3>Hidden Gems</h3>
             <p>Get access to the neighborhood spots, off-menu finds, and places that never make it to travel blogs.</p>
           </div>
           <div class="feature">
-            <h2>Real Connections</h2>
+            <span class="feature-icon">&#129309;</span>
+            <h3>Real Connections</h3>
             <p>Skip the algorithm. Get a real person who says "follow me" and actually means it.</p>
           </div>
         </div>
       </section>
+
+      <div class="app-links">
+        <a href="/apps/localwise/privacy/">Privacy Policy</a>
+        <a href="/apps/localwise/support/">Support</a>
+      </div>
     </main>
 
-    <footer>
-      <span>&copy; 2026 Jusder</span>
-      <span><a href="/apps/localwise/support/">Support</a> &nbsp;·&nbsp; <a href="/apps/localwise/privacy/">Privacy Policy</a></span>
+    <footer class="footer">
+      <span>© 2026 Jusder</span>
+      <a href="/">jusder.me</a>
     </footer>
   </div>
 </body>
