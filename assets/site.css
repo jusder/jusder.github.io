@@ -500,19 +500,23 @@ img { display: block; max-width: 100%; }
   margin-bottom: 22px;
 }
 
-/* iPhone screenshots — horizontal scroll, tall portrait. */
+/* iPhone screenshots — horizontal scroll, tall portrait.
+   Flex (not grid) so mobile Safari doesn't collapse the row into a
+   vertical stack. `flex: 0 0 220px` locks each item's width so they
+   never wrap. Use `justify-content: safe center` so the strip
+   centers when it fits but stays scroll-from-start when it overflows
+   (plain `center` causes Mobile Safari to push the first item off
+   the scrollable origin). */
 .shots-strip {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(220px, 240px);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   gap: 16px;
   overflow-x: auto;
   padding-bottom: 12px;
   scrollbar-width: thin;
-  /* Center the row when the strip is narrow enough to fit without scroll.
-     6+ shots will still horizontally scroll left-aligned; 5-or-fewer
-     center within the container. */
-  justify-content: center;
+  justify-content: safe center;
+  -webkit-overflow-scrolling: touch;
 }
 .shots-strip::-webkit-scrollbar { height: 8px; }
 .shots-strip::-webkit-scrollbar-track { background: transparent; }
@@ -521,11 +525,18 @@ img { display: block; max-width: 100%; }
   border-radius: 10px;
 }
 .shots-strip img {
-  width: 100%;
+  flex: 0 0 220px;
+  width: 220px;
   height: auto;
   border-radius: 26px;
   box-shadow: 0 12px 28px rgba(23, 35, 31, 0.16);
   border: 1px solid var(--line);
+}
+@media (min-width: 980px) {
+  .shots-strip img {
+    flex-basis: 240px;
+    width: 240px;
+  }
 }
 
 /* Web app screenshot — single large landscape with chrome-style frame. */
